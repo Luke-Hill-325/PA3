@@ -67,49 +67,52 @@ void renderSqMatrix(GMatrix& m, Agraph_t* g) {
 	}
 }
 
-
 int main(int argc, char** argv) {
-	string in;
-	getline(cin, in);
-	stringstream(in) >> N;
-	cout << N << "\n";
-	G = GMatrix(N, vector<bool>(N, false));
-	int a,b;
-	while(true) {
-		getline(cin, in);
-		if (in.compare("\n")) getline(cin, in);
-		stringstream(in) >> a >> b;
-		if (a == 0 && b == 0)
-			break;
-		G[a - 1][b - 1] = true;
-	}
-	cout << "G1 (the initial G with paths of length 1):\n";
-	printSqMatrix(G);
-
-	GMatrix GClosure = transitiveClosure();
-	cout << "Transitive Closure: \n";
-	printSqMatrix(GClosure);
-
-	GMatrix GReflexiveTransitiveClosure = GClosure;
-	for (int ij = 0; ij < N; ij++){
-		GReflexiveTransitiveClosure[ij][ij] = GReflexiveTransitiveClosure[ij][ij] || true;
-	}
-	cout << "Reflexive Transitive Closure: \n";
-	printSqMatrix(GReflexiveTransitiveClosure);
-
-
 	GVC_t *gvc = gvContext();
 	gvParseArgs(gvc, argc, argv);
 	Agraph_t *g = agopen("g", Agdirected, 0);
 	agattr(g,AGNODE,"shape","point");
 	agattr(g,AGNODE,"width","1");
 
-	//Agraph_t *Gr = agsubg(g, "G", 1);
-	renderSqMatrix(G, g);
-	
-	//Agraph_t *RTCG = agsubg(g, "ReflexiveTransitiveClosure", 2);
-	//cout << "sub2: " << RTCG << endl;
-	renderSqMatrix(GReflexiveTransitiveClosure, g);
+	int a,b;
+	string in;
+	getline(cin, in);
+	while(getline(cin, in)){
+		if (!in.empty() && isdigit(in.front())) {
+			stringstream(in) >> N; 
+			G = GMatrix(N, vector<bool>(N, false));
+			while(true) {
+				getline(cin, in);
+				while(in.empty()){
+					getline(cin, in);
+				}
+				stringstream(in) >> a >> b;
+				if (a == 0 && b == 0)
+					break;
+				G[a - 1][b - 1] = true;
+			}
+			cout << "G1 (the initial G with paths of length 1):\n";
+			printSqMatrix(G);
+
+			GMatrix GClosure = transitiveClosure();
+			cout << "Transitive Closure: \n";
+			printSqMatrix(GClosure);
+
+			GMatrix GReflexiveTransitiveClosure = GClosure;
+			for (int ij = 0; ij < N; ij++){
+				GReflexiveTransitiveClosure[ij][ij] = GReflexiveTransitiveClosure[ij][ij] || true;
+			}
+			cout << "Reflexive Transitive Closure: \n";
+			printSqMatrix(GReflexiveTransitiveClosure);
+
+			//Agraph_t *Gr = agsubg(g, "G", 1);
+			renderSqMatrix(G, g);
+			
+			//Agraph_t *RTCG = agsubg(g, "ReflexiveTransitiveClosure", 2);
+			//cout << "sub2: " << RTCG << endl;
+			renderSqMatrix(GReflexiveTransitiveClosure, g);
+		}
+	}
   	// Compute a layout using layout engine from command line args
   	gvLayoutJobs(gvc, g);
 
