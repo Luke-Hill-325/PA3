@@ -1,0 +1,3 @@
+/home/luke/ws/PA3/build/CMakeFiles/PA3.dir
+/home/luke/ws/PA3/build/CMakeFiles/edit_cache.dir
+/home/luke/ws/PA3/build/CMakeFiles/rebuild_cache.dir

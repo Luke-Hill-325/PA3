@@ -1,11 +1,18 @@
 #include<iostream>
 #include<vector>
+#include<string>
+#include<sstream>
+//#include<graphviz/cgraph.h>
+#include<graphviz/gvc.h>
+
 using namespace std;
 
 typedef vector<vector<bool>> GMatrix;
 
 int N;
 GMatrix G;
+int curNodeID = 1;
+int curEdgeID = 0;
 
 void printSqMatrix(GMatrix& m) {
 	for(int i = 0; i < N; i++) {
@@ -39,18 +46,81 @@ GMatrix transitiveClosure() {
 	return Gplus;
 }
 
-int main(int argc, char *argv[], char *envp[]) {
-	N = 4;
-	G = {
-		{false, true, false, false},
-		{false, false, true, true },
-		{false, false, false, true},
-		{true, false, false, false}
-	};
+void renderSqMatrix(GMatrix& m, Agraph_t* g) {
+	vector<Agnode_t*> nodes;
+	for (int i = 0; i < N; i++){
+		char id[1];
+		id[0] = char(curNodeID++);
+		Agnode_t* newnode = agnode(g, id, 1);
+		nodes.push_back(newnode);
+		//agidnode(g, (ulong)i, 1);
+	}
+	for (int i = 0; i < N; i++){
+		for(int j = 0; j < N; j++){
+			if (m[i][j]){
+				//agidedge(g, agidnode(g, (ulong)i, 0), agidnode(g, (ulong)j, 0), (ulong)(i * 10 + j), 1);
+				char id[1];
+				id[0] = char(curEdgeID++);
+				agedge(g, nodes[i], nodes[j], id, 1);
+			}
+		}
+	}
+}
+
+
+int main(int argc, char** argv) {
+	string in;
+	getline(cin, in);
+	stringstream(in) >> N;
+	cout << N << "\n";
+	G = GMatrix(N, vector<bool>(N, false));
+	int a,b;
+	while(true) {
+		getline(cin, in);
+		if (in.compare("\n")) getline(cin, in);
+		stringstream(in) >> a >> b;
+		if (a == 0 && b == 0)
+			break;
+		G[a - 1][b - 1] = true;
+	}
 	cout << "G1 (the initial G with paths of length 1):\n";
 	printSqMatrix(G);
 
 	GMatrix GClosure = transitiveClosure();
 	cout << "Transitive Closure: \n";
 	printSqMatrix(GClosure);
+
+	GMatrix GReflexiveTransitiveClosure = GClosure;
+	for (int ij = 0; ij < N; ij++){
+		GReflexiveTransitiveClosure[ij][ij] = GReflexiveTransitiveClosure[ij][ij] || true;
+	}
+	cout << "Reflexive Transitive Closure: \n";
+	printSqMatrix(GReflexiveTransitiveClosure);
+
+
+	GVC_t *gvc = gvContext();
+	gvParseArgs(gvc, argc, argv);
+	Agraph_t *g = agopen("g", Agdirected, 0);
+	agattr(g,AGNODE,"shape","point");
+	agattr(g,AGNODE,"width","1");
+
+	//Agraph_t *Gr = agsubg(g, "G", 1);
+	renderSqMatrix(G, g);
+	
+	//Agraph_t *RTCG = agsubg(g, "ReflexiveTransitiveClosure", 2);
+	//cout << "sub2: " << RTCG << endl;
+	renderSqMatrix(GReflexiveTransitiveClosure, g);
+  	// Compute a layout using layout engine from command line args
+  	gvLayoutJobs(gvc, g);
+
+  	// Write the graph according to -T and -o options
+  	gvRenderJobs(gvc, g);
+
+  	// Free layout data
+  	gvFreeLayout(gvc, g);
+
+  	// Free graph structures
+  	agclose(g);
+	
+	return gvFreeContext(gvc);
 }
