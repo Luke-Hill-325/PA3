@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/PA3.dir/PA3_Luke_Hill.cpp.o"
-  "CMakeFiles/PA3.dir/PA3_Luke_Hill.cpp.o.d"
+  "CMakeFiles/PA3.dir/Hill_PA3.cpp.o"
+  "CMakeFiles/PA3.dir/Hill_PA3.cpp.o.d"
   "PA3"
   "PA3.pdb"
 )

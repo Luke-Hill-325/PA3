@@ -129,29 +129,29 @@ PA3/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PA3.dir/build.make CMakeFiles/PA3.dir/build
 .PHONY : PA3/fast
 
-PA3_Luke_Hill.o: PA3_Luke_Hill.cpp.o
-.PHONY : PA3_Luke_Hill.o
+Hill_PA3.o: Hill_PA3.cpp.o
+.PHONY : Hill_PA3.o
 
 # target to build an object file
-PA3_Luke_Hill.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PA3.dir/build.make CMakeFiles/PA3.dir/PA3_Luke_Hill.cpp.o
-.PHONY : PA3_Luke_Hill.cpp.o
+Hill_PA3.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PA3.dir/build.make CMakeFiles/PA3.dir/Hill_PA3.cpp.o
+.PHONY : Hill_PA3.cpp.o
 
-PA3_Luke_Hill.i: PA3_Luke_Hill.cpp.i
-.PHONY : PA3_Luke_Hill.i
+Hill_PA3.i: Hill_PA3.cpp.i
+.PHONY : Hill_PA3.i
 
 # target to preprocess a source file
-PA3_Luke_Hill.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PA3.dir/build.make CMakeFiles/PA3.dir/PA3_Luke_Hill.cpp.i
-.PHONY : PA3_Luke_Hill.cpp.i
+Hill_PA3.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PA3.dir/build.make CMakeFiles/PA3.dir/Hill_PA3.cpp.i
+.PHONY : Hill_PA3.cpp.i
 
-PA3_Luke_Hill.s: PA3_Luke_Hill.cpp.s
-.PHONY : PA3_Luke_Hill.s
+Hill_PA3.s: Hill_PA3.cpp.s
+.PHONY : Hill_PA3.s
 
 # target to generate assembly for a file
-PA3_Luke_Hill.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PA3.dir/build.make CMakeFiles/PA3.dir/PA3_Luke_Hill.cpp.s
-.PHONY : PA3_Luke_Hill.cpp.s
+Hill_PA3.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PA3.dir/build.make CMakeFiles/PA3.dir/Hill_PA3.cpp.s
+.PHONY : Hill_PA3.cpp.s
 
 # Help Target
 help:
@@ -162,9 +162,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... PA3"
-	@echo "... PA3_Luke_Hill.o"
-	@echo "... PA3_Luke_Hill.i"
-	@echo "... PA3_Luke_Hill.s"
+	@echo "... Hill_PA3.o"
+	@echo "... Hill_PA3.i"
+	@echo "... Hill_PA3.s"
 .PHONY : help
 
 

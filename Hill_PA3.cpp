@@ -37,8 +37,8 @@ GMatrix transitiveClosure() {
 	GMatrix Gplus = G;
 	for (int k = 1; k < N; k++) {
 		curGk = Gk(curGk);
-		cout << "G" << k + 1 << ":\n";
-		printSqMatrix(curGk);
+		//cout << "G" << k + 1 << ":\n";
+		//printSqMatrix(curGk);
 		for (int i = 0; i < N; i++)
 			for (int j = 0; j < N; j++)
 				Gplus[i][j] = Gplus[i][j] || curGk[i][j];
@@ -91,19 +91,19 @@ int main(int argc, char** argv) {
 					break;
 				G[a - 1][b - 1] = true;
 			}
-			cout << "G1 (the initial G with paths of length 1):\n";
-			printSqMatrix(G);
+			//cout << "G1 (the initial G with paths of length 1):\n";
+			//printSqMatrix(G);
 
 			GMatrix GClosure = transitiveClosure();
-			cout << "Transitive Closure: \n";
-			printSqMatrix(GClosure);
+			//cout << "Transitive Closure: \n";
+			//printSqMatrix(GClosure);
 
 			GMatrix GReflexiveTransitiveClosure = GClosure;
 			for (int ij = 0; ij < N; ij++){
 				GReflexiveTransitiveClosure[ij][ij] = GReflexiveTransitiveClosure[ij][ij] || true;
 			}
-			cout << "Reflexive Transitive Closure: \n";
-			printSqMatrix(GReflexiveTransitiveClosure);
+			//cout << "Reflexive Transitive Closure: \n";
+			//printSqMatrix(GReflexiveTransitiveClosure);
 
 			//Agraph_t *Gr = agsubg(g, "G", 1);
 			renderSqMatrix(G, g);

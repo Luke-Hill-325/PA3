@@ -6,6 +6,6 @@ project(PA3)  # Set the project name
 set(CMAKE_CXX_STANDARD 17)
 
 # Add an executable target
-add_executable(PA3 PA3_Luke_Hill.cpp) 
+add_executable(PA3 Hill_PA3.cpp) 
 
 target_link_libraries(PA3 ${PostgreSQL_LIBRARIES} cgraph gvc)
